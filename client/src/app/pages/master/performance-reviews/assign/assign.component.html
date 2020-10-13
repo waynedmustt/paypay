@@ -1,0 +1,27 @@
+<nz-page-header *ngIf="!isLoadingData" class="site-page-header" nzTitle="Performance Reviews {{performanceReview.name}}">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+        <nz-breadcrumb-item>Master</nz-breadcrumb-item>
+        <nz-breadcrumb-item><a routerLink="/master/performance-reviews">Performance Reviews</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>Assign</nz-breadcrumb-item>
+    </nz-breadcrumb>
+</nz-page-header>
+<form nz-form *ngIf="!isLoadingData" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="userId">User</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please select user!">
+            <nz-select formControlName="userId"
+            nzPlaceHolder="Select User"
+            nzAllowClear
+            >
+                <nz-option *ngFor="let user of users" [nzValue]="user.id" [nzLabel]="user?.firstName + ' ' + user?.lastName"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row class="creation-area">
+        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+            <button nz-button [nzType]="'primary'" [disabled]="!validateForm.valid">
+                Assign
+            </button>
+        </nz-form-control>
+      </nz-form-item>
+</form>

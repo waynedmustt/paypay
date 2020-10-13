@@ -1,0 +1,53 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar"
+            nzCollapsible
+            nzWidth="256px"
+            nzBreakpoint="md"
+            [(nzCollapsed)]="isCollapsed"
+            [nzTrigger]="null"
+            *ngIf="isLoggedIn">
+    <div class="sidebar-logo">
+      <a href="https://ng.ant.design/" target="_blank">
+        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
+        <h1>PayPay</h1>
+      </a>
+    </div>
+    <ul *ngIf="isLoggedIn && userLoggedIn" nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-menu-item nzTitle="Dashboard" nzSelected="activeTab === 'welcome'">
+        <i nz-icon nzType="dashboard"></i>
+        <a routerLink="/welcome" (click)="setActiveTab('welcome')">Welcome</a>
+      </li>
+      <li nz-submenu nzOpen="masterMenus.indexOf(activeTab) !== -1 ? true : false" nzTitle="Master" nzIcon="home">
+        <ul>
+          <li *ngIf="isVisible('employees')" nz-menu-item nzMatchRouter nzSelected="activeTab === 'employees'">
+            <a routerLink="/master/employees" (click)="setActiveTab('employees')">Employee</a>
+          </li>
+          <li *ngIf="isVisible('performanceReviews')" nz-menu-item nzMatchRouter nzSelected="activeTab === 'performanceReviews'">
+            <a routerLink="/master/performance-reviews" (click)="setActiveTab('performanceReviews')">Performance Review</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-menu-item nzTitle="Logout">
+        <i nz-icon nzType="logout"></i>
+        <a (click)="logout();false;">Logout</a>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header *ngIf="isLoggedIn">
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <i class="trigger"
+               nz-icon
+               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></i>
+        </span>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

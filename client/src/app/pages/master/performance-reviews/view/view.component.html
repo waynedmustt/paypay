@@ -1,0 +1,33 @@
+<nz-page-header class="site-page-header" nzTitle="Performance Review">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+        <nz-breadcrumb-item>Master</nz-breadcrumb-item>
+        <nz-breadcrumb-item><a routerLink="/master/performance-reviews">Performance Review</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>View</nz-breadcrumb-item>
+    </nz-breadcrumb>
+</nz-page-header>
+<form *ngIf="!isLoadingData">
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name">Name</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <span>{{performanceReview.name}}</span>
+        </nz-form-control>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="lastName">Review Date</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <span>{{getDate(performanceReview.year)}}</span>
+        </nz-form-control>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="username">User</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <span>{{performanceReview.user?.firstName + ' ' + performanceReview.user?.lastName}}</span>
+        </nz-form-control>
+    </nz-form-item>
+    <ul nz-list [nzDataSource]="performanceReview.assignee" nzBordered nzHeader="Assignee">
+        <li nz-list-item *ngFor="let assignee of performanceReview.assignee" nzNoFlex>
+            <ul nz-list-item-actions>
+                <li nz-list-item-action>
+                    <span>{{assignee?.user?.firstName + ' ' + assignee?.user?.lastName}}</span>
+                    <span style="float: right;">{{ assignee.feedback }}</span>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</form>

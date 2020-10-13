@@ -1,0 +1,48 @@
+<nz-page-header class="site-page-header" nzTitle="Performance Reviews">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+        <nz-breadcrumb-item>Master</nz-breadcrumb-item>
+        <nz-breadcrumb-item>Performance Reviews</nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <nz-page-header-extra *ngIf="userLoggedIn?.role?.type === 'admin'">
+        <button nz-button nzType="primary" [routerLink]="'/master/performance-reviews/create'">Create New Performance Review</button>
+    </nz-page-header-extra>
+</nz-page-header>
+<nz-table #basicTable 
+[nzData]="dataList"
+[nzLoading]="isLoading"
+>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>User</th>
+            <th>Review Date</th>
+            <th *ngIf="userLoggedIn?.role?.type === 'admin'">Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+        <td>{{data.name}}</td>
+        <td>{{data?.user?.firstName + ' ' + data?.user?.lastName}}</td>
+        <th>{{getDate(data.year)}}</th>
+        <td *ngIf="userLoggedIn?.role?.type === 'admin'">{{data.isCompleted ? 'Completed' : 'Pending'}}</td>
+        <td>
+            <ng-container *ngIf="userLoggedIn?.role?.type === 'admin'">
+                <a routerLink="/master/performance-reviews/detail/{{data.id}}">View</a>
+            </ng-container>
+            <ng-container *ngIf="userLoggedIn?.role?.type === 'admin'">
+                <nz-divider nzType="vertical"></nz-divider>
+                <a routerLink="/master/performance-reviews/update/{{data.id}}">Update</a>
+            </ng-container>
+            <ng-container *ngIf="userLoggedIn?.role?.type === 'employee'">
+                <nz-divider nzType="vertical"></nz-divider>
+                <a routerLink="/master/performance-reviews/submit/{{data.id}}">Submit Feedback</a>
+            </ng-container>
+            <ng-container *ngIf="userLoggedIn?.role?.type === 'admin'">
+                <nz-divider nzType="vertical"></nz-divider>
+                <a routerLink="/master/performance-reviews/assign/{{data.id}}">Assign</a>
+            </ng-container>
+        </td>
+        </tr>
+    </tbody>
+</nz-table>

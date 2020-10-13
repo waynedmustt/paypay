@@ -1,0 +1,38 @@
+<nz-page-header class="site-page-header" nzTitle="Employees">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+        <nz-breadcrumb-item>Master</nz-breadcrumb-item>
+        <nz-breadcrumb-item><a routerLink="/master/employees">Employees</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>{{type}}</nz-breadcrumb-item>
+    </nz-breadcrumb>
+</nz-page-header>
+<form *ngIf="!isLoadingData" nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="firstName">First Name</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your first Name!">
+            <input nz-input formControlName="firstName" id="firstName" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="lastName">Last Name</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your last Name!">
+            <input nz-input formControlName="lastName" id="lastName" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="username">Username</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your Username!">
+            <input nz-input formControlName="username" id="username" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="type === 'Create'">
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="lastName">Password</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your Password!">
+            <input type="password" nz-input formControlName="password" id="password" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row class="creation-area">
+        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+            <button nz-button [nzType]="'primary'" [disabled]="!validateForm.valid">{{type === 'Create' ? 'Create' : 'Update'}}</button>
+        </nz-form-control>
+      </nz-form-item>
+</form>

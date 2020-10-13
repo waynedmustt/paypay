@@ -1,0 +1,37 @@
+<nz-page-header class="site-page-header" nzTitle="Performance Reviews">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+        <nz-breadcrumb-item>Master</nz-breadcrumb-item>
+        <nz-breadcrumb-item><a routerLink="/master/performance-reviews">Performance Reviews</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>{{type}}</nz-breadcrumb-item>
+    </nz-breadcrumb>
+</nz-page-header>
+<form nz-form *ngIf="!isLoadingData && !isLoadingUsers" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Name</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input Performance Review's Name!">
+            <input nz-input formControlName="name" id="name" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="year">Review Date</nz-form-label>
+        <nz-date-picker [(ngModel)]="date" (ngModelChange)="onChange($event)" id="year" [ngModelOptions]="{standalone: true}"></nz-date-picker>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="userId">User</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please select user!">
+            <nz-select formControlName="userId"
+            nzPlaceHolder="Select User"
+            nzAllowClear
+            >
+                <nz-option *ngFor="let user of users" [nzValue]="user.id" [nzLabel]="user?.firstName + ' ' + user?.lastName"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row class="creation-area">
+        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+            <button nz-button [nzType]="'primary'" [disabled]="!validateForm.valid || !date">
+                {{type === 'Create' ? 'Create' : 'Update'}}
+            </button>
+        </nz-form-control>
+      </nz-form-item>
+</form>

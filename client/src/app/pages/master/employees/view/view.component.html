@@ -1,0 +1,23 @@
+<nz-page-header class="site-page-header" nzTitle="Employees">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+        <nz-breadcrumb-item>Master</nz-breadcrumb-item>
+        <nz-breadcrumb-item><a routerLink="/master/employees">Employees</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>View</nz-breadcrumb-item>
+    </nz-breadcrumb>
+</nz-page-header>
+<form *ngIf="!isLoadingData">
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="firstName">First Name</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <span>{{user.firstName}}</span>
+        </nz-form-control>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="lastName">Last Name</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <span>{{user.lastName}}</span>
+        </nz-form-control>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="username">username</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <span>{{user.username}}</span>
+        </nz-form-control>
+    </nz-form-item>
+</form>

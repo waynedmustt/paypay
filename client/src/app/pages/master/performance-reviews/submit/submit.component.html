@@ -1,0 +1,22 @@
+<nz-page-header *ngIf="!isLoadingData" class="site-page-header" nzTitle="Performance Reviews {{performanceReview.name}}">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+        <nz-breadcrumb-item>Master</nz-breadcrumb-item>
+        <nz-breadcrumb-item><a routerLink="/master/performance-reviews">Performance Reviews</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>Submit Feedback</nz-breadcrumb-item>
+    </nz-breadcrumb>
+</nz-page-header>
+<form nz-form *ngIf="!isLoadingData" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="feedback">Feedback</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzErrorTip="Please write something here!">
+            <textarea formControlName="feedback" nz-input rows="2" placeholder="write anything"></textarea>
+          </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row class="creation-area">
+        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+            <button nz-button [nzType]="'primary'" [disabled]="!validateForm.valid">
+                Submit
+            </button>
+        </nz-form-control>
+      </nz-form-item>
+</form>
